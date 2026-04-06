@@ -35,7 +35,7 @@
     font-family: var(--font-body);
     overflow-x: hidden;
   }
-
+  
   /* ── NAV ── */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -51,8 +51,10 @@
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   }*/
   .nav-logo {
-  width: 200px;
+  
   height: 40px;
+  width: auto;
+  aspect-ratio: 5 / 1; /* opcional */
   background-image: url("logo_os.png");
   background-size: contain;
   background-repeat: no-repeat;
