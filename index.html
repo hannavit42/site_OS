@@ -51,10 +51,12 @@
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   }*/
   .nav-logo {
-  height: 40px;
-  display: flex;
-  align-items: center;
+  height: 43px;
+  width: 178px; /* ajuste conforme sua logo */
   background-image: url("logo_os2.png");
+  background-size: contain;       /* mantém proporção */
+  background-repeat: no-repeat;   /* evita repetição */
+  background-position: left center; /* melhor alinhamento */
 }
   .nav-links { display: flex; gap: 2rem; list-style: none; }
   .nav-links a {
