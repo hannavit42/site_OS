@@ -45,11 +45,19 @@
     backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border);
   }
-  .nav-logo {
+  /*.nav-logo {
     font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; letter-spacing: 0.05em;
     background: linear-gradient(90deg, var(--cyan), var(--magenta));
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
+  }*/
+  .nav-logo {
+  width: 120px;
+  height: 40px;
+  background-image: url("assets/logo_os.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
   .nav-links { display: flex; gap: 2rem; list-style: none; }
   .nav-links a {
     color: var(--muted); text-decoration: none;
@@ -533,16 +541,16 @@
         <div class="timeline-year">2020</div>
         <div>
           <span class="timeline-tag tag-magenta">Saúde</span>
-          <div class="timeline-content-title">Na linha de frente da COVID-19</div>
-          <div class="timeline-content-desc">Em parceria com o Hospital Albert Einstein, desenvolvemos diagnósticos rápidos via FIA-HRMS e metabolômica. Iniciamos também projetos de análise sensorial de café com LA-REIMS.</div>
+          <div class="timeline-content-title">COVID-19</div>
+          <div class="timeline-content-desc">Em parceria com o Hospital Albert Einstein, desenvolvemos diagnósticos rápidos via FIA-HRMS e metabolômica. Em paralelo, iniciamos também projetos de análise sensorial de café com LA-REIMS.</div>
         </div>
       </div>
 
       <div class="timeline-item">
-        <div class="timeline-year">2021</div>
+        <div class="timeline-year">2021–Atual</div>
         <div>
           <span class="timeline-tag tag-cyan">Agronegócio</span>
-          <div class="timeline-content-title">Primeiro sistema HSI para classificação de café</div>
+          <div class="timeline-content-title">Sistema HSI para classificação de café</div>
           <div class="timeline-content-desc">Início do desenvolvimento da plataforma de imageamento hiperespectral para a Cooxupé — a maior cooperativa de café do mundo. Visão de máquina aplicada à classificação de grãos em escala industrial.</div>
         </div>
       </div>
@@ -590,7 +598,7 @@
       <div class="demo-col">
         <span class="demo-col-icon">⚙️</span>
         <div class="demo-col-title">Hardware de baixo custo</div>
-        <div class="demo-col-desc">Câmeras espectrais e sistemas HSI a uma fração do custo de mercado — abrindo o acesso a PMEs e cooperativas do agronegócio que hoje não têm acesso à tecnologia de ponta.</div>
+        <div class="demo-col-desc">Câmeras espectrais e sistemas HSI a uma fração do custo de mercado — abrindo o acesso a pequenas negócios do agronegócio que hoje não têm acesso à tecnologia de ponta.</div>
       </div>
       <div class="demo-col">
         <span class="demo-col-icon">🌱</span>
@@ -600,7 +608,7 @@
       <div class="demo-col">
         <span class="demo-col-icon">🤝</span>
         <div class="demo-col-title">Parcerias com universidades</div>
-        <div class="demo-col-desc">Colaboramos com UFSCar, UFSM, UFPR e Unicamp para construir um banco de dados espectral aberto e formar a próxima geração de cientistas de dados químicos.</div>
+        <div class="demo-col-desc">Colaboramos com UFRGS, UFPR e Unicamp no desenvolvimento de projetos.</div>
       </div>
       <div class="demo-col">
         <span class="demo-col-icon">🏆</span>
@@ -737,13 +745,12 @@
     <div class="portfolio-grid">
 
       <div class="portfolio-card reveal">
-        <span class="portfolio-trl trl-high">TRL 7 · Operacional</span>
         <span class="portfolio-icon">🌿</span>
         <h3 class="portfolio-card-title">Plataforma HSI — Grãos</h3>
         <div class="portfolio-card-sub">Imageamento hiperespectral para classificação de grãos</div>
         <p class="portfolio-card-desc">Sistema de visão de máquina com modelos quimiométricos e IA para classificação automática de grãos (café, soja, milho). Identifica defeitos e gradações com precisão superior à inspeção visual humana, em tempo real.</p>
         <ul class="portfolio-specs">
-          <li>Patente INPI — BR 10 2023 008919 4</li>
+          <li>Patente INPI </li>
           <li>Em operação na Cooxupé (maior cooperativa do mundo)</li>
           <li>Amostragem automática, software proprietário</li>
           <li>Aplicável em cooperativas e trading companies</li>
@@ -751,35 +758,32 @@
       </div>
 
       <div class="portfolio-card reveal reveal-delay-1">
-        <span class="portfolio-trl trl-mid">TRL 5 · Validado</span>
         <span class="portfolio-icon">📷</span>
         <h3 class="portfolio-card-title">Imajan — MSI Portátil</h3>
         <div class="portfolio-card-sub">Câmera multiespectral de baixo custo</div>
-        <p class="portfolio-card-desc">Hardware MSI desenvolvido na OpenScience, baseado em Python + Arduino. Democratiza o acesso a imagens espectrais para PMEs do agronegócio, com múltiplas configurações espectrais e propósitos analíticos.</p>
+        <p class="portfolio-card-desc">Hardware MSI desenvolvido na OpenScience. Democratiza o acesso a imagens espectrais para PMEs do agronegócio, com múltiplas configurações espectrais e propósitos analíticos.</p>
         <ul class="portfolio-specs">
           <li>Premiado no IWHI — comunidade acadêmica internacional</li>
           <li>Versões para campo e bancada laboratorial</li>
           <li>Software proprietário embarcado</li>
-          <li>Custo 10× menor que sistemas comerciais equivalentes</li>
+          <li>Custo menor que sistemas comerciais equivalentes</li>
         </ul>
       </div>
 
       <div class="portfolio-card reveal reveal-delay-2">
-        <span class="portfolio-trl trl-high">TRL 5 · IAEA/ONU Viena</span>
         <span class="portfolio-icon">🔬</span>
         <h3 class="portfolio-card-title">Microscópio Multiespectral</h3>
-        <div class="portfolio-card-sub">3 eixos · 24 comprimentos de onda · 365–1050 nm</div>
+        <div class="portfolio-card-sub">3 eixos · +24 comprimentos de onda · 365–1050 nm</div>
         <p class="portfolio-card-desc">Sistema automatizado de imageamento espectral para detecção de adulterantes em alimentos e food safety. Automação completa com software proprietário integrado a pipeline de análise quimiométrica.</p>
         <ul class="portfolio-specs">
           <li>Apresentado na IAEA/ONU — Viena, 2023</li>
           <li>Detecção de adulterantes em matrizes complexas</li>
-          <li>24 comprimentos de onda configuráveis (365–1050 nm)</li>
+          <li>+24 comprimentos de onda configuráveis (365–1050 nm)</li>
           <li>Interface integrada com modelos preditivos</li>
         </ul>
       </div>
 
       <div class="portfolio-card reveal reveal-delay-3">
-        <span class="portfolio-trl trl-green">TRL 4 · Protótipo</span>
         <span class="portfolio-icon">👃</span>
         <h3 class="portfolio-card-title">Nariz Eletrônico</h3>
         <div class="portfolio-card-sub">Análise sensorial objetiva via dados químicos</div>
@@ -787,8 +791,8 @@
         <ul class="portfolio-specs">
           <li>Baseado em chemosensory analytics</li>
           <li>Complementa e valida painéis sensoriais humanos</li>
-          <li>Integrado a modelos quimiométricos (PLS, PCA)</li>
-          <li>Aplicações em café, cerveja, whisky e fragrâncias</li>
+          <li>Integrado a modelos quimiométricos</li>
+          <li>Aplicações para indústria de alimentos, bebidas, agronegócio e saúde</li>
         </ul>
       </div>
 
@@ -835,6 +839,9 @@
         </div>
         <div class="equipe-stat-card">
           <div class="equipe-stat-label">Propósito de impacto</div>
+        </div>
+        <div class="equipe-stat-card">
+          <div class="equipe-stat-label">Colaborações e Parcerias</div>
         </div>
         <div class="equipe-quote">
           "Acreditamos que a IA e a automação devem capacitar as pessoas — não substituí-las. O saber científico sempre vem primeiro."
@@ -898,8 +905,8 @@
       </div>
       <div class="service-card">
         <div class="service-card-icon">🌾</div>
-        <div class="service-card-title">Controle de Qualidade Agro</div>
-        <div class="service-card-desc">Grãos, café, ração, pesticidas e adulterantes — da cooperativa à exportação.</div>
+        <div class="service-card-title">Diagnósticos e Controle de Qualidade</div>
+        <div class="service-card-desc">Classificação de grãos, detecção de materiais estranhos em alimentos, análises de pesticidas, micotoxinas, antibióticos, hormônios, em tempo real e no ponto de interesse.</div>
       </div>
       <div class="service-card">
         <div class="service-card-icon">🔍</div>
