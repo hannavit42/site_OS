@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenScience — Inovação & Descoberta 2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600;700&family=Jura:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cyan: #28aabc;
+    --cyan-light: #28abbccb;
+    --magenta: #b01faa;
+    --magenta-light: #D629C9;
+    --green: #0d9669;
+    --bg: #ffffff;
+    --bg2: #f4f6f9;
+    --bg3: #e8ecf2;
+    --bg-dark: #0d0d14;
+    --text: #0f0f1a;
+    --text2: #2a2a3a;
+    --muted: #000000;
+    --border: #d0d5e0;
+    --border-accent: rgba(26,143,160,0.25);
+    --font-display: 'Oswald', sans-serif;
+    --font-body: 'Jura', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.1rem 3rem;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; letter-spacing: 0.05em;
+    background: linear-gradient(90deg, var(--cyan), var(--magenta));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none;
+    font-family: var(--font-mono); font-size: 1rem; letter-spacing: 0.1em; text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--cyan); }
+
+  /* ── HERO ── */
+  #capa {
+    position: relative; height: 100vh;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+    background: linear-gradient(160deg, #f0f8fa 0%, #faf0fc 50%, #f0faf5 100%);
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 15% 50%, rgba(26,143,160,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 70% at 85% 30%, rgba(176,31,170,0.09) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 55% 85%, rgba(13,150,105,0.07) 0%, transparent 60%);
+  }
+  .grid-lines {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(26,143,160,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26,143,160,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  }
+  .hero-content { position: relative; z-index: 2; text-align: center; padding: 2rem; max-width: 900px; }
+  .hero-eyebrow {
+    font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.3em;
+    color: var(--cyan); text-transform: uppercase; margin-bottom: 2rem;
+    opacity: 0; animation: fadeUp 0.8s 0.3s forwards;
+  }
+  .hero-title {
+    font-family: var(--font-display); font-size: clamp(4rem, 10vw, 9rem);
+    font-weight: 700; line-height: 0.9; letter-spacing: -0.02em;
+    margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s 0.5s forwards;
+  }
+  .hero-title .line1 { color: var(--cyan); display: block; }
+  .hero-title .line2 {
+    display: block;
+    background: linear-gradient(135deg, var(--magenta), var(--cyan));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero-sub {
+    font-size: 1.1rem; font-weight: 400; color: var(--muted);
+    letter-spacing: 0.04em; margin-bottom: 3rem;
+    opacity: 0; animation: fadeUp 0.8s 0.7s forwards;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 0.8rem;
+    padding: 1rem 2.5rem;
+    border: 1.5px solid var(--cyan); color: var(--cyan); text-decoration: none;
+    font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+    transition: all 0.3s; opacity: 0; animation: fadeUp 0.8s 0.9s forwards;
+    background: transparent;
+  }
+  .hero-cta:hover { background: var(--cyan); color: white; }
+  .hero-scroll {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    opacity: 0.5; animation: bounce 2s infinite;
+  }
+  .hero-scroll span { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.2em; color: var(--muted); }
+  .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--cyan), transparent); }
+
+  /* ── SHARED ── */
+  section { padding: 6rem 0; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 3rem; }
+
+  .section-label {
+    font-family: var(--font-mono); font-size: 1rem; letter-spacing: 0.3em;
+    color: var(--cyan); text-transform: uppercase; margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .section-label::before { content: ''; display: block; width: 30px; height: 5px; background: var(--cyan); }
+
+  .section-title {
+    font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700; line-height: 1; letter-spacing: -0.01em;
+    margin-bottom: 3rem; color: var(--text);
+  }
+
+  /* ── FUNDADOR ── */
+  #fundador { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .fundador-grid { display: grid; grid-template-columns: 380px 1fr; gap: 4rem; align-items: start; }
+ 
+  .fundador-video-wrap { position: relative; }
+  .fundador-video-link {
+    display: block; width: 100%; aspect-ratio: 16/9;
+    border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+    position: relative; cursor: pointer; background: #000;
+    text-decoration: none;
+  }
+  .yt-thumb {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block; transition: opacity 0.3s;
+  }
+  .fundador-video-link:hover .yt-thumb { opacity: 0.75; }
+  .yt-play-btn {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 2px 10px rgba(0,0,0,0.6));
+    transition: transform 0.2s;
+    pointer-events: none;
+  }
+  .fundador-video-link:hover .yt-play-btn { transform: translate(-50%, -50%) scale(1.1); }
+  .yt-open-label {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(0,0,0,0.65);
+    color: white;
+    font-family: var(--font-mono); font-size: 1rem; letter-spacing: 0.1em;
+    text-align: center; padding: 0.6rem;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .fundador-video-link:hover .yt-open-label { opacity: 1; }
+  .fundador-name {
+    text-align: center; margin-top: 1rem;
+    font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: var(--text);
+  }
+  .fundador-role {
+    text-align: center; margin-top: 0.5rem;
+    font-family: var(--font-mono); font-size: 1rem; color: var(--cyan); letter-spacing: 0.1em;
+  }
+  .award-pill {
+    display: inline-block; margin-top: 0.6rem;
+    font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.1em;
+    padding: 0.3rem 0.8rem;
+    background: linear-gradient(135deg, var(--cyan), var(--magenta));
+    color: white; border-radius: 20px;
+  }
+ 
+  .fundador-right blockquote {
+    font-family: var(--font-display); font-size: clamp(1.5rem, 2.5vw, 2.1rem);
+    font-weight: 400; line-height: 1.35; color: var(--text);
+    margin-bottom: 2rem; border-left: 3px solid var(--cyan); padding-left: 1.5rem;
+  }
+  .fundador-right blockquote em { color: var(--cyan); font-style: normal; }
+  .fundador-body { font-size: 1.1rem; line-height: 1.8; color: var(--muted); margin-bottom: 1.2rem; }
+ 
+  .stat-row {
+    display: flex; gap: 3rem; flex-wrap: wrap;
+    margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border);
+  }
+  .stat-num { font-family: var(--font-display); font-size: 2.2rem; font-weight: 700; color: var(--cyan); line-height: 1; }
+  .stat-label { font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.3rem; }
+  /* ── HISTÓRIA ── */
+  #historia { background: var(--bg); }
+  .timeline { position: relative; margin-top: 3rem; padding-left: 3rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1.5px;
+    background: linear-gradient(to bottom, var(--cyan), var(--magenta), #ddd);
+  }
+  .timeline-item {
+    position: relative; padding: 0 0 3rem 3rem;
+    display: grid; grid-template-columns: 90px 1fr; gap: 2rem; align-items: start;
+  }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -4px; top: 6px;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--cyan); border: 2px solid var(--bg);
+    box-shadow: 0 0 8px rgba(26,143,160,0.4);
+  }
+  .timeline-year { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; color: rgba(26,143,160,0.35); line-height: 1; }
+  .timeline-tag {
+    display: inline-block; font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 0.5rem 0.8rem; border-radius: 20px; margin-bottom: 0.5rem;
+  }
+  .tag-cyan { border: 1px solid var(--cyan); color: var(--cyan); }
+  .tag-magenta { border: 1px solid var(--magenta); color: var(--magenta); }
+  .tag-green { border: 1px solid var(--green); color: var(--green); }
+  .timeline-content-title { font-family: var(--font-display); font-size: 1.4rem; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; }
+  .timeline-content-desc { font-size: 1rem; color: var(--muted); line-height: 1.7; }
+
+  /* ── DEMOCRATIZAÇÃO ── */
+  #democratizacao { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .demo-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 3rem;
+  }
+  .demo-hero {
+    background: var(--bg); padding: 3rem; grid-column: 1 / -1; border-bottom: 1px solid var(--border);
+  }
+  .demo-hero-quote {
+    font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 300; line-height: 1.3; color: var(--text); max-width: 900px;
+  }
+  .demo-hero-quote em { color: var(--cyan); font-style: normal; }
+  .demo-col { background: var(--bg); padding: 2.5rem; transition: background 0.3s; }
+  .demo-col:hover { background: var(--bg2); }
+  .demo-col-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+  .demo-col-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; margin-bottom: 0.7rem; color: var(--cyan); }
+  .demo-col-desc { font-size: 1rem; color: var(--muted); line-height: 1.7; }
+
+  /* ── CIÊNCIA ── */
+  #ciencia { background: var(--bg); }
+  .achievements-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 3rem;
+  }
+  .achievement-card { background: var(--bg); padding: 2.5rem; transition: background 0.3s; }
+  .achievement-card:hover { background: var(--bg2); }
+  .achievement-badge {
+    font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.12em;
+    text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 20px;
+    display: inline-block; margin-bottom: 1.5rem;
+  }
+  .achievement-icon { font-size: 2.2rem; margin-bottom: 1rem; display: block; }
+  .achievement-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text); }
+  .achievement-year { font-family: var(--font-mono); font-size: 0.62rem; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 0.8rem; }
+  .achievement-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+
+  /* ── CASES ── */
+  #cases { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .cases-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 3rem; }
+  .case-item {
+    background: var(--bg); display: grid; grid-template-columns: 70px 1fr 1fr auto;
+    align-items: center; transition: background 0.3s; overflow: hidden;
+  }
+  .case-item:hover { background: var(--bg2); }
+  .case-num {
+    font-family: var(--font-display); font-size: 3rem; font-weight: 700;
+    color: rgba(26, 142, 160, 0.568); padding: 2rem 1.2rem;
+    border-right: 1px solid var(--border); text-align: center; transition: color 0.3s;
+  }
+  .case-item:hover .case-num { color: cyan-light }
+  .case-main { padding: 2rem; border-right: 1px solid var(--border); }
+  .case-tag { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cyan); margin-bottom: 0.5rem; }
+  .case-client { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text); }
+  .case-desc { font-size: 1rem; color: var(--muted); }
+  .case-results-col { padding: 2rem; border-right: 1px solid var(--border); }
+  .case-result-item { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.8rem; font-size: 1rem; color: var(--muted); }
+  .case-result-item::before { content: '✓'; color: var(--green); font-size: 1rem; font-weight: 700; }
+  .case-accent { width: 5px; height: 100%; min-height: 120px; align-self: stretch; }
+  .case-accent-1 { background: linear-gradient(to bottom, var(--cyan), transparent); }
+  .case-accent-2 { background: linear-gradient(to bottom, var(--magenta), transparent); }
+  .case-accent-3 { background: linear-gradient(to bottom, var(--green), transparent); }
+
+  /* ── HARDWARE ── */
+  #portfolio { background: var(--bg); }
+  .portfolio-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 3rem;
+  }
+  .portfolio-card { background: var(--bg); padding: 2.5rem; position: relative; transition: background 0.3s; }
+  .portfolio-card:hover { background: var(--bg2); }
+  .portfolio-trl {
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    font-family: var(--font-mono); font-size: 1rem; letter-spacing: 0.08em;
+    padding: 0.3rem 0.7rem; border-radius: 20px;
+  }
+  .trl-high { border: 1px solid var(--cyan); color: var(--cyan); background: rgba(26,143,160,0.06); }
+  .trl-mid { border: 1px solid var(--magenta); color: var(--magenta); background: rgba(176,31,170,0.06); }
+  .trl-green { border: 1px solid var(--green); color: var(--green); background: rgba(13,150,105,0.06); }
+  .portfolio-icon { font-size: 2.5rem; margin-bottom: 1.5rem; display: block; }
+  .portfolio-card-title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text); }
+  .portfolio-card-sub { font-family: var(--font-mono); font-size: 0.7rem; color: var(--cyan); letter-spacing: 0.1em; margin-bottom: 1.2rem; }
+  .portfolio-card-desc { font-size: 0.9rem; line-height: 1.7; color: var(--muted); margin-bottom: 1.5rem; }
+  .portfolio-specs { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+  .portfolio-specs li {
+    font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted);
+    display: flex; align-items: flex-start; gap: 0.5rem;
+  }
+  .portfolio-specs li::before { content: '—'; color: var(--cyan); flex-shrink: 0; }
+
+  /* ── EQUIPE ── */
+  #equipe { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .equipe-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 4rem; align-items: start; margin-top: 3rem; }
+  .valores-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .valor-item { background: var(--bg); padding: 2rem; transition: background 0.3s; }
+  .valor-item:hover { background: var(--bg2); }
+  .valor-icon { font-size: 1.6rem; margin-bottom: 1rem; display: block; }
+  .valor-title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 600; color: var(--cyan); margin-bottom: 0.5rem; }
+  .valor-desc { font-size: 1rem; color: var(--muted); line-height: 1.5; }
+  .equipe-right { display: flex; flex-direction: column; gap: 1.5rem; }
+  .equipe-stat-card { background: var(--bg); border: 1px solid var(--border); padding: 1.8rem; }
+  .equipe-stat-num { font-family: var(--font-display); font-size: 2.8rem; font-weight: 700; color: var(--cyan); line-height: 1; margin-bottom: 0.3rem; }
+  .equipe-stat-label { font-family: var(--font-mono); font-size: 1rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+  .equipe-body { font-size: 1rem; line-height: 1.8; color: var(--muted); margin-bottom: 3rem; }
+  .equipe-quote {
+    background: var(--bg); border: 1px solid var(--border);
+    border-left: 3px solid var(--magenta);
+    padding: 1.5rem; font-size: 1rem; color: var(--muted); line-height: 1.7; font-style: italic;
+  }
+
+  /* ── SERVIÇOS ── */
+  #servicos { background: var(--bg); }
+  .poc-flow {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: var(--border); border: 1px solid var(--border);
+    margin-top: 3rem; margin-bottom: 4rem;
+  }
+  .poc-step { background: var(--bg); padding: 2.5rem 2rem; text-align: center; position: relative; transition: background 0.3s; }
+  .poc-step:hover { background: var(--bg2); }
+  .poc-step-num { font-family: var(--font-display); font-size: 3.5rem; font-weight: 700; color: rgba(26, 142, 160, 0.593); line-height: 1; margin-bottom: 1rem; }
+  .poc-step-title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 600; margin-bottom: 0.8rem; color: var(--cyan); }
+  .poc-step-desc { font-size: 1rem; color: var(--muted); line-height: 1.6; }
+  .poc-arrow {
+    position: absolute; right: -12px; top: 50%; transform: translateY(-50%);
+    width: 24px; height: 24px; background: var(--bg); border: 1px solid var(--border);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; color: var(--cyan); z-index: 2;
+  }
+  .poc-step:last-child .poc-arrow { display: none; }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .service-card { background: var(--bg); padding: 2.5rem; transition: background 0.3s; }
+  .service-card:hover { background: var(--bg2); }
+  .service-card-icon { font-size: 1.8rem; margin-bottom: 1.2rem; }
+  .service-card-title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 600; margin-bottom: 0.8rem; color: var(--text); }
+  .service-card-desc { font-size: 1rem; color: var(--muted); line-height: 1.7; }
+
+  /* ── CONTATO (dark strip) ── */
+  #contato {
+    background: var(--bg-dark);
+    color: white;
+    text-align: center;
+    padding: 6rem 0;
+    position: relative; overflow: hidden;
+  }
+  .contato-glow {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 60% at 50% 50%, rgba(26,143,160,0.1) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(176,31,170,0.08) 0%, transparent 60%);
+  }
+  .contato-title {
+    font-family: var(--font-display); font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 700; line-height: 1; letter-spacing: -0.02em;
+    margin-bottom: 1.5rem; position: relative; z-index: 1; color: white;
+  }
+  .contato-title span {
+    display: block;
+    background: linear-gradient(135deg, var(--cyan-light), var(--magenta-light));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .contato-sub { font-size: 1.05rem; color: rgba(200,200,220,0.8); max-width: 580px; margin: 0 auto 3rem; line-height: 1.7; position: relative; z-index: 1; }
+  .contato-cta {
+    display: inline-flex; align-items: center; gap: 1rem;
+    padding: 1.2rem 3rem;
+    background: linear-gradient(135deg, var(--cyan-light), var(--magenta-light));
+    color: white; text-decoration: none;
+    font-family: var(--font-display); font-size: 1rem; font-weight: 600;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    transition: all 0.3s; position: relative; z-index: 1;
+  }
+  .contato-cta:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(40,170,188,0.35); }
+  .contato-links {
+    display: flex; justify-content: center; gap: 3rem;
+    margin-top: 4rem; padding-top: 3rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    position: relative; z-index: 1; flex-wrap: wrap;
+  }
+  .contato-link { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; text-decoration: none; }
+  .contato-link-label { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.2em; color: rgba(200,200,220,0.5); text-transform: uppercase; }
+  .contato-link-value { font-size: 0.9rem; color: var(--cyan-light); transition: color 0.3s; }
+  .contato-link:hover .contato-link-value { color: white; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bg-dark); border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-logo {
+    font-family: var(--font-display); font-weight: 700; font-size: 1rem;
+    background: linear-gradient(90deg, var(--cyan-light), var(--magenta-light));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    letter-spacing: 0.05em;
+  }
+  .footer-copy { font-family: var(--font-mono); font-size: 0.58rem; color: rgba(200,200,220,0.4); letter-spacing: 0.08em; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(10px); } }
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+   /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .container { padding: 0 1.5rem; }
+    .fundador-grid, .equipe-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    .demo-grid, .valores-grid { grid-template-columns: 1fr; }
+    .demo-hero { grid-column: 1; }
+    .achievements-grid { grid-template-columns: 1fr; }
+    .case-item { grid-template-columns: 60px 1fr; }
+    .case-results-col, .case-accent { display: none; }
+    .portfolio-grid { grid-template-columns: 1fr; }
+    .poc-flow { grid-template-columns: repeat(2, 1fr); }
+    .poc-arrow { display: none; }
+    .services-grid { grid-template-columns: 1fr; }
+    .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">openscience</div>
+  <ul class="nav-links">
+    <li><a href="#historia">História</a></li>
+    <li><a href="#ciencia">Ciência</a></li>
+    <li><a href="#cases">Cases</a></li>
+    <li><a href="#portfolio">Hardware</a></li>
+    <li><a href="#equipe">Equipe</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+</nav>
+
+<!-- CAPA -->
+<section id="capa">
+  <div class="hero-bg"></div>
+  <div class="grid-lines"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Inteligência química · Campinas, Brasil · 2026</p>
+    <h1 class="hero-title">
+      <span class="line1">Inovação</span>
+      <span class="line2">& Descoberta</span>
+    </h1>
+    <p class="hero-sub">Transformamos dados químicos em decisões de negócio</p>
+    <a href="#fundador" class="hero-cta">Explorar ↓</a>
+  </div>
+  <div class="hero-scroll"><span>scroll</span><div class="scroll-line"></div></div>
+</section>
+
+
+<!-- FUNDADOR -->
+<section id="fundador">
+  <div class="container">
+    <div class="fundador-grid">
+ 
+      <div class="fundador-video-wrap reveal">
+        <a href="https://www.youtube.com/watch?v=2bfOg-jAS7c" target="_blank" rel="noopener noreferrer" class="fundador-video-link">
+          <img
+            src="https://img.youtube.com/vi/2bfOg-jAS7c/maxresdefault.jpg"
+            alt="Guilherme Post Sabin — OpenScience"
+            class="yt-thumb"
+            onerror="this.src='https://img.youtube.com/vi/2bfOg-jAS7c/hqdefault.jpg'"
+          />
+          <div class="yt-play-btn">
+            <svg viewBox="0 0 68 48" width="68" height="48">
+              <path d="M66.5 7.8C65.7 4.8 63.3 2.5 60.3 1.7 55 0 34 0 34 0S13 0 7.7 1.7C4.7 2.5 2.3 4.8 1.5 7.8 0 13.1 0 24 0 24s0 10.9 1.5 16.2c.8 3 3.2 5.3 6.2 6.1C13 48 34 48 34 48s21 0 26.3-1.7c3-.8 5.4-3.1 6.2-6.1C68 34.9 68 24 68 24s0-10.9-1.5-16.2z" fill="#ff0000"/>
+              <path d="M27 34l18-10-18-10v20z" fill="#fff"/>
+            </svg>
+          </div>
+          <div class="yt-open-label">▶ Abrir no YouTube</div>
+        </a>
+      </div>
+ 
+      <div class="reveal reveal-delay-2">
+        <div class="section-label">Carta do Fundador</div>
+        <blockquote>
+          "Há mais de duas décadas, me encantei com a quimiometria — e desde então minha missão é uma só: <em>levar a ciência de dados químicos onde ela pode realmente mudar o mundo."</br> .</em>
+        </blockquote>
+        <p class="fundador-body">A OpenScience nasceu da convicção de que tecnologia analítica de ponta não pode ficar restrita a grandes laboratórios centralizados. Trabalhamos na fronteira entre química, ciência de dados e hardware — resolvendo problemas reais para cooperativas, indústria, hospitais e a agroindústria global.</p>
+        <p class="fundador-body">Cada projeto que entregamos carrega um propósito duplo: resolver o problema do cliente e empurrar os limites do que a química analítica pode fazer.</p>
+        <div class="stat-row">
+          <div><div class="stat-num">20+</div><div class="stat-label">anos em quimiometria</div></div>
+          <div><div class="stat-num">1</div><div class="stat-label">prêmio global BAT R&D</div></div>
+        </div>
+      </div>
+ 
+    </div>
+  </div>
+</section>
+
+<!-- HISTÓRIA -->
+<section id="historia">
+  <div class="container">
+    <div class="section-label reveal">De onde viemos</div>
+    <h2 class="section-title reveal">Nossa história</h2>
+    <div class="timeline reveal">
+
+      <div class="timeline-item">
+        <div class="timeline-year">2020</div>
+        <div>
+          <span class="timeline-tag tag-magenta">Saúde</span>
+          <div class="timeline-content-title">Na linha de frente da COVID-19</div>
+          <div class="timeline-content-desc">Em parceria com o Hospital Albert Einstein, desenvolvemos diagnósticos rápidos via FIA-HRMS e metabolômica. Iniciamos também projetos de análise sensorial de café com LA-REIMS.</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-year">2021</div>
+        <div>
+          <span class="timeline-tag tag-cyan">Agronegócio</span>
+          <div class="timeline-content-title">Primeiro sistema HSI para classificação de café</div>
+          <div class="timeline-content-desc">Início do desenvolvimento da plataforma de imageamento hiperespectral para a Cooxupé — a maior cooperativa de café do mundo. Visão de máquina aplicada à classificação de grãos em escala industrial.</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-year">2022</div>
+        <div>
+          <span class="timeline-tag tag-green">Hardware</span>
+          <div class="timeline-content-title">Democratizando imagens espectrais</div>
+          <div class="timeline-content-desc">Desenvolvimento intensivo de câmeras MSI de baixo custo. O microscópio multiespectral foi reconhecido no International Workshop of Hyperspectral Imaging e convidado para apresentação na IAEA/ONU em Viena.</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-year">2023</div>
+        <div>
+          <span class="timeline-tag tag-cyan">Publicação</span>
+          <div class="timeline-content-title">Patentes, food safety e capa científica</div>
+          <div class="timeline-content-desc">Depositamos patentes no INPI para o sistema de classificação de café. Desenvolvemos modelos quimiométricos para detecção de adulteração em azeite com 93,3% de acurácia. Nossa pesquisa de análise de cerveja em tempo real foi capa da Analytical Methods.</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-year">2024–25</div>
+        <div>
+          <span class="timeline-tag tag-magenta">Expansão</span>
+          <div class="timeline-content-title">Pesticidas, novos mercados e escala global</div>
+          <div class="timeline-content-desc">Implementações para análise de resíduos de pesticidas voltadas à exportação de commodities. Expansão para ração animal, grãos e food safety com tecnologias espectrais proprietárias.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- DEMOCRATIZAÇÃO -->
+<section id="democratizacao">
+  <div class="container">
+    <div class="section-label reveal">Nossa filosofia</div>
+    <h2 class="section-title reveal">Tecnologia analítica<br>para <span style="color:var(--cyan)">todos</span>.</h2>
+    <div class="demo-grid reveal">
+      <div class="demo-hero">
+        <div class="demo-hero-quote">"Não apenas falamos sobre democratização da tecnologia — <em>nós a fazemos acontecer.</em> Acreditamos que a inovação só tem valor real quando chega às mãos de quem mais precisa."</div>
+      </div>
+      <div class="demo-col">
+        <span class="demo-col-icon">⚙️</span>
+        <div class="demo-col-title">Hardware de baixo custo</div>
+        <div class="demo-col-desc">Câmeras espectrais e sistemas HSI a uma fração do custo de mercado — abrindo o acesso a PMEs e cooperativas do agronegócio que hoje não têm acesso à tecnologia de ponta.</div>
+      </div>
+      <div class="demo-col">
+        <span class="demo-col-icon">🌱</span>
+        <div class="demo-col-title">Do campo ao consumidor</div>
+        <div class="demo-col-desc">Nossa missão é encurtar a distância entre o laboratório e o campo. Análises tão precisas quanto um lab central — em segundos, no local.</div>
+      </div>
+      <div class="demo-col">
+        <span class="demo-col-icon">🤝</span>
+        <div class="demo-col-title">Parcerias com universidades</div>
+        <div class="demo-col-desc">Colaboramos com UFSCar, UFSM, UFPR e Unicamp para construir um banco de dados espectral aberto e formar a próxima geração de cientistas de dados químicos.</div>
+      </div>
+      <div class="demo-col">
+        <span class="demo-col-icon">🏆</span>
+        <div class="demo-col-title">Reconhecimento internacional</div>
+        <div class="demo-col-desc">Premiados no IWHI por avanços em HSI de baixo custo — provando que acessível não significa inferior.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRAJETÓRIA CIENTÍFICA -->
+<section id="ciencia">
+  <div class="container">
+    <div class="section-label reveal">Reconhecimento e publicações</div>
+    <h2 class="section-title reveal">Nossa trajetória<br>científica</h2>
+    <div class="achievements-grid reveal">
+
+      <div class="achievement-card">
+        <span class="achievement-badge tag-cyan">Prêmio Internacional</span>
+        <span class="achievement-icon">🏅</span>
+        <div class="achievement-title">Sir Charles Ellis Award</div>
+        <div class="achievement-year">2017 · British American Tobacco (BAT)</div>
+        <div class="achievement-desc">Melhor cientista global de P&D da BAT — credencial de elite em quimiometria industrial aplicada em larga escala.</div>
+      </div>
+
+      <div class="achievement-card">
+        <span class="achievement-badge tag-magenta">Publicação Científica</span>
+        <span class="achievement-icon">📖</span>
+        <div class="achievement-title">Capa — Analytical Methods</div>
+        <div class="achievement-year">2023 · Royal Society of Chemistry</div>
+        <div class="achievement-desc">Pesquisa sobre análise de cerveja em tempo real via espectrometria de massa selecionada como capa da revista.</div>
+      </div>
+
+      <div class="achievement-card">
+        <span class="achievement-badge tag-green">Reconhecimento Acadêmico</span>
+        <span class="achievement-icon">🌐</span>
+        <div class="achievement-title">IWHI — Melhor Contribuição</div>
+        <div class="achievement-year">2022 · International Workshop of Hyperspectral Imaging</div>
+        <div class="achievement-desc">Premiados por avanços em sistemas HSI de baixo custo — validando nossa abordagem de democratização tecnológica.</div>
+      </div>
+
+      <div class="achievement-card">
+        <span class="achievement-badge tag-cyan">Diplomacia Científica</span>
+        <span class="achievement-icon">☕</span>
+        <div class="achievement-title">IAEA / ONU — Viena</div>
+        <div class="achievement-year">2023 · Agência Internacional de Energia Atômica</div>
+        <div class="achievement-desc">Microscópio Multiespectral convidado para apresentação na sede da IAEA/ONU — reconhecimento global em food safety.</div>
+      </div>
+
+      <div class="achievement-card">
+        <span class="achievement-badge tag-magenta">Propriedade Intelectual</span>
+        <span class="achievement-icon">📋</span>
+        <div class="achievement-title">Patentes INPI</div>
+        <div class="achievement-year">2023–2024 · Instituto Nacional de Propriedade Industrial</div>
+        <div class="achievement-desc">Patentes para o sistema de classificação de café via HSI e controle inteligente de processos — portfólio de PI consolidado.</div>
+      </div>
+
+      <div class="achievement-card">
+        <span class="achievement-badge tag-green">Food Safety</span>
+        <span class="achievement-icon">🫒</span>
+        <div class="achievement-title">Detecção de Adulteração em Azeite</div>
+        <div class="achievement-year">2023 · Quimiometria Aplicada</div>
+        <div class="achievement-desc">Modelos com 93,3% de acurácia para detecção de adulteração em azeite — 229 amostras validadas, análise em menos de 2 minutos.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section id="cases">
+  <div class="container">
+    <div class="section-label reveal">Resultados comprovados</div>
+    <h2 class="section-title reveal">Cases de sucesso</h2>
+    <div class="cases-list reveal">
+
+      <div class="case-item">
+        <div class="case-num">01</div>
+        <div class="case-main">
+          <div class="case-tag">Agronegócio · Hardware + IA</div>
+          <div class="case-client">Cooxupé</div>
+          <div class="case-desc">Maior cooperativa de café do mundo — classificação automatizada de grãos por imageamento hiperespectral</div>
+        </div>
+        <div class="case-results-col">
+          <div class="case-result-item">Patente INPI depositada</div>
+          <div class="case-result-item">Sistema em operação industrial</div>
+          <div class="case-result-item">Detecta defeitos invisíveis ao olho humano</div>
+          <div class="case-result-item">Potencial de redefinir pricing de café no Brasil</div>
+        </div>
+        <div class="case-accent case-accent-1"></div>
+      </div>
+
+      <div class="case-item">
+        <div class="case-num">02</div>
+        <div class="case-main">
+          <div class="case-tag">Food Safety · Software / Quimiometria</div>
+          <div class="case-client">Azeite</div>
+          <div class="case-desc">Detecção rápida de fraude e adulteração em azeite via quimiometria — análise em tempo real sem reagentes</div>
+        </div>
+        <div class="case-results-col">
+          <div class="case-result-item">93,3% de acurácia comprovada</div>
+          <div class="case-result-item">229 amostras validadas</div>
+          <div class="case-result-item">Análise em menos de 2 minutos</div>
+          <div class="case-result-item">Autuação em campo em tempo real</div>
+        </div>
+        <div class="case-accent case-accent-2"></div>
+      </div>
+
+      <div class="case-item">
+        <div class="case-num">03</div>
+        <div class="case-main">
+          <div class="case-tag">Saúde · Diagnóstico clínico</div>
+          <div class="case-client">Hospital Albert Einstein</div>
+          <div class="case-desc">Diagnóstico rápido de COVID-19 via FIA-HRMS e metabolômica — linha de frente da pandemia</div>
+        </div>
+        <div class="case-results-col">
+          <div class="case-result-item">Diagnóstico em minutos vs. horas</div>
+          <div class="case-result-item">Metodologia REIMS em amostras clínicas</div>
+          <div class="case-result-item">Publicação com destaque em Analytical Methods</div>
+          <div class="case-result-item">Parceria com maior hospital de referência do Brasil</div>
+        </div>
+        <div class="case-accent case-accent-3"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PORTFÓLIO HARDWARE -->
+<section id="portfolio">
+  <div class="container">
+    <div class="section-label reveal">Tecnologia proprietária</div>
+    <h2 class="section-title reveal">Portfólio de hardware</h2>
+    <div class="portfolio-grid">
+
+      <div class="portfolio-card reveal">
+        <span class="portfolio-trl trl-high">TRL 7 · Operacional</span>
+        <span class="portfolio-icon">🌿</span>
+        <h3 class="portfolio-card-title">Plataforma HSI — Grãos</h3>
+        <div class="portfolio-card-sub">Imageamento hiperespectral para classificação de grãos</div>
+        <p class="portfolio-card-desc">Sistema de visão de máquina com modelos quimiométricos e IA para classificação automática de grãos (café, soja, milho). Identifica defeitos e gradações com precisão superior à inspeção visual humana, em tempo real.</p>
+        <ul class="portfolio-specs">
+          <li>Patente INPI — BR 10 2023 008919 4</li>
+          <li>Em operação na Cooxupé (maior cooperativa do mundo)</li>
+          <li>Amostragem automática, software proprietário</li>
+          <li>Aplicável em cooperativas e trading companies</li>
+        </ul>
+      </div>
+
+      <div class="portfolio-card reveal reveal-delay-1">
+        <span class="portfolio-trl trl-mid">TRL 5 · Validado</span>
+        <span class="portfolio-icon">📷</span>
+        <h3 class="portfolio-card-title">Imajan — MSI Portátil</h3>
+        <div class="portfolio-card-sub">Câmera multiespectral de baixo custo</div>
+        <p class="portfolio-card-desc">Hardware MSI desenvolvido na OpenScience, baseado em Python + Arduino. Democratiza o acesso a imagens espectrais para PMEs do agronegócio, com múltiplas configurações espectrais e propósitos analíticos.</p>
+        <ul class="portfolio-specs">
+          <li>Premiado no IWHI — comunidade acadêmica internacional</li>
+          <li>Versões para campo e bancada laboratorial</li>
+          <li>Software proprietário embarcado</li>
+          <li>Custo 10× menor que sistemas comerciais equivalentes</li>
+        </ul>
+      </div>
+
+      <div class="portfolio-card reveal reveal-delay-2">
+        <span class="portfolio-trl trl-high">TRL 5 · IAEA/ONU Viena</span>
+        <span class="portfolio-icon">🔬</span>
+        <h3 class="portfolio-card-title">Microscópio Multiespectral</h3>
+        <div class="portfolio-card-sub">3 eixos · 24 comprimentos de onda · 365–1050 nm</div>
+        <p class="portfolio-card-desc">Sistema automatizado de imageamento espectral para detecção de adulterantes em alimentos e food safety. Automação completa com software proprietário integrado a pipeline de análise quimiométrica.</p>
+        <ul class="portfolio-specs">
+          <li>Apresentado na IAEA/ONU — Viena, 2023</li>
+          <li>Detecção de adulterantes em matrizes complexas</li>
+          <li>24 comprimentos de onda configuráveis (365–1050 nm)</li>
+          <li>Interface integrada com modelos preditivos</li>
+        </ul>
+      </div>
+
+      <div class="portfolio-card reveal reveal-delay-3">
+        <span class="portfolio-trl trl-green">TRL 4 · Protótipo</span>
+        <span class="portfolio-icon">👃</span>
+        <h3 class="portfolio-card-title">Nariz Eletrônico</h3>
+        <div class="portfolio-card-sub">Análise sensorial objetiva via dados químicos</div>
+        <p class="portfolio-card-desc">Sistema de nariz eletrônico para identificação e quantificação de compostos voláteis. Transforma avaliações sensoriais subjetivas em dados químicos objetivos e reproduzíveis.</p>
+        <ul class="portfolio-specs">
+          <li>Baseado em chemosensory analytics</li>
+          <li>Complementa e valida painéis sensoriais humanos</li>
+          <li>Integrado a modelos quimiométricos (PLS, PCA)</li>
+          <li>Aplicações em café, cerveja, whisky e fragrâncias</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EQUIPE -->
+<section id="equipe">
+  <div class="container">
+    <div class="section-label reveal">Quem somos</div>
+    <h2 class="section-title reveal">Nossa equipe</h2>
+    <p class="equipe-body reveal" style="max-width:720px">
+      Somos mais do que uma empresa — somos uma comunidade diversificada de cientistas, engenheiros e desenvolvedores unidos por um propósito: colocar o saber científico a serviço das pessoas.
+    </p>
+    <div class="equipe-layout">
+      <div class="reveal">
+        <div class="valores-grid">
+          <div class="valor-item">
+            <span class="valor-icon">🔍</span>
+            <div class="valor-title">Curiosidade</div>
+            <div class="valor-desc">Cada problema é uma oportunidade de aprender. Questionamos o óbvio e buscamos o que está além da superfície.</div>
+          </div>
+          <div class="valor-item">
+            <span class="valor-icon">🤝</span>
+            <div class="valor-title">Empatia</div>
+            <div class="valor-desc">Entendemos os desafios antes de propor qualquer solução. O problema do cliente é o nosso problema.</div>
+          </div>
+          <div class="valor-item">
+            <span class="valor-icon">💡</span>
+            <div class="valor-title">Imaginação</div>
+            <div class="valor-desc">A inovação exige enxergar além do convencional e transformar o inimaginável em realidade.</div>
+          </div>
+          <div class="valor-item">
+            <span class="valor-icon">🎯</span>
+            <div class="valor-title">Determinação</div>
+            <div class="valor-desc">A excelência analítica é um compromisso diário, não uma meta distante.</div>
+          </div>
+        </div>
+      </div>
+      <div class="equipe-right reveal reveal-delay-2">
+        <div class="equipe-stat-card">
+          <div class="equipe-stat-label">Universidades parceiras</div>
+        </div>
+        <div class="equipe-stat-card">
+          <div class="equipe-stat-label">Propósito de impacto</div>
+        </div>
+        <div class="equipe-quote">
+          "Acreditamos que a IA e a automação devem capacitar as pessoas — não substituí-las. O saber científico sempre vem primeiro."
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS / POC -->
+<section id="servicos">
+  <div class="container">
+    <div class="section-label reveal">Como trabalhamos</div>
+    <h2 class="section-title reveal">Do problema ao resultado<br><span style="color:var(--cyan)">em 4 passos.</span></h2>
+    <div class="poc-flow reveal">
+      <div class="poc-step">
+        <div class="poc-step-num">01</div>
+        <div class="poc-step-title">Diagnóstico</div>
+        <div class="poc-step-desc">Entendemos o problema analítico — velocidade, precisão ou custo.</div>
+        <div class="poc-arrow">→</div>
+      </div>
+      <div class="poc-step">
+        <div class="poc-step-num">02</div>
+        <div class="poc-step-title">Prova de Conceito</div>
+        <div class="poc-step-desc">Projeto pago e delimitado com relatório técnico e resultados reais.</div>
+        <div class="poc-arrow">→</div>
+      </div>
+      <div class="poc-step">
+        <div class="poc-step-num">03</div>
+        <div class="poc-step-title">Validação</div>
+        <div class="poc-step-desc">Testamos no ambiente real do cliente — seus dados, seus processos.</div>
+        <div class="poc-arrow">→</div>
+      </div>
+      <div class="poc-step">
+        <div class="poc-step-num">04</div>
+        <div class="poc-step-title">Implantação</div>
+        <div class="poc-step-desc">Hardware, software, modelos e capacitação da equipe técnica.</div>
+      </div>
+    </div>
+    <div class="section-label reveal">Nossos serviços</div>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <div class="service-card-icon">🧪</div>
+        <div class="service-card-title">Consultoria Técnica</div>
+        <div class="service-card-desc">P&D de elite para desafios analíticos complexos. Espectrometria, quimiometria, imagens espectrais.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-card-icon">🛠️</div>
+        <div class="service-card-title">Desenvolvimento de equipamentos</div>
+        <div class="service-card-desc">Câmeras MSI e HSI de baixo custo, desenvolvidos e calibrados para o seu problema.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-card-icon">📊</div>
+        <div class="service-card-title">Modelos & Software</div>
+        <div class="service-card-desc">PLS, PCA-LDA e redes neurais prontos para integrar ao seu processo produtivo.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-card-icon">🎓</div>
+        <div class="service-card-title">Capacitação Técnica</div>
+        <div class="service-card-desc">Treinamento em quimiometria aplicada para equipes analíticas — do básico ao avançado.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-card-icon">🌾</div>
+        <div class="service-card-title">Controle de Qualidade Agro</div>
+        <div class="service-card-desc">Grãos, café, ração, pesticidas e adulterantes — da cooperativa à exportação.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-card-icon">🔍</div>
+        <div class="service-card-title">Food Safety</div>
+        <div class="service-card-desc">Métodos rápidos para detecção de fraudes em alimentos — sem reagentes, em tempo real.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato">
+  <div class="contato-glow"></div>
+  <div class="container">
+    <div class="section-label reveal" style="justify-content:center;color:rgba(40,170,188,0.8)">Próximo passo</div>
+    <h2 class="contato-title reveal">Tem um problema<br><span>analítico real?</span></h2>
+    <p class="contato-sub reveal">Comece com uma Prova de Conceito. Projeto pago, escopo delimitado, resultado técnico garantido — sem risco, com ciência.</p>
+    <a href="https://www.openscience.com.br/contato#anchors-lfk4e1vp2" class="contato-cta reveal">Solicitar uma PoC →</a>
+    <div class="contato-links reveal">
+      <div class="contato-link"><span class="contato-link-label">Site</span><span class="contato-link-value">openscience.com.br</span></div>
+      <div class="contato-link"><span class="contato-link-label">LinkedIn</span><span class="contato-link-value">openscience-cfa</span></div>
+      <div class="contato-link"><span class="contato-link-label">Instagram</span><span class="contato-link-value">@openscience_</span></div>
+      <div class="contato-link"><span class="contato-link-label">E-mail</span><span class="contato-link-value">gpsabin@openscience.com.br</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">openscience</div>
+  <div class="footer-copy">© 2025 OpenScience · Campinas, Brasil · openscience.com.br</div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
